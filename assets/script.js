@@ -28,8 +28,9 @@ const btnSliderNext = document.getElementById("right");
 let dots = document.querySelector(".dots");
 let currentSlide = 0;
 
-// Création Dots ??
-// On récupèré let dots... après les avoir créer
+/**
+ * création des dots en fonction du nombre de slides
+ */
 for (let i = 0; i < slides.length; i++) {
   let dotSpan = document.createElement("span");
 
@@ -61,7 +62,7 @@ function displaySlide(slideToDisplay) {
 }
 
 /**
- *
+ * Affiche la slide précedente en cliquant sur la fleche de gauche
  */
 btnSliderPrevious.addEventListener("click", () => {
   // Mise à jours du compteur currentSlide
@@ -80,7 +81,7 @@ btnSliderPrevious.addEventListener("click", () => {
 });
 
 /**
- *
+ *Affiche la slide suivante en cliquant sur la fleche de droite
  */
 btnSliderNext.addEventListener("click", () => {
   // mise à jours du compteur currentSlide
@@ -97,7 +98,7 @@ btnSliderNext.addEventListener("click", () => {
 });
 
 /**
- *
+ * Affichage de la slide concernée au click sur un dot
  */
 for (let i = 0; i < dot.length; i++) {
   dot[i].addEventListener("click", () => {
@@ -112,7 +113,3 @@ for (let i = 0; i < dot.length; i++) {
 //
 displaySlide(currentSlide);
 
-/**
- * TODO:
- * - Créer dynamiquement la liste des dots dans le HTML (createElement... )
- */
