@@ -16,85 +16,103 @@ const slides = [
     image: "slide4.png",
     tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
   },
+  
 ];
-
-const dots = [dot1, dot2, dot3, dot4];
 
 const carouselContainer = document.getElementById("carousel");
 const carouselImgContainer = carouselContainer.querySelector(".carousel__img");
 const carouselTagContainer = carouselContainer.querySelector(".carousel__txt");
 
-const left = document.getElementById("left");
-const right = document.getElementById("right");
-let endClick = false;
+const btnSliderPrevious = document.getElementById("left");
+const btnSliderNext = document.getElementById("right");
+let dots = document.querySelector(".dots");
+let currentSlide = 0;
 
-i = 0;
-let carouselImg = slides[i].image;
-let carouselTag = slides[i].tagLine;
-let selectedDotID = dots[i];
+// Création Dots ??
+// On récupèré let dots... après les avoir créer
+for (let i = 0; i < slides.length; i++) {
+  let dotSpan = document.createElement("span");
 
-selectedDotID.classList.add("dot_selected");
+  dots.appendChild(dotSpan);
+  dotSpan.setAttribute("id", "dot" + i);
+  dotSpan.classList.add("dot");
+}
+const dot = document.querySelectorAll(".dot");
+/**
+ * Affiche la slide en fonction de la variable currentSlide
+ */
+function displaySlide(slideToDisplay) {
+  // Met à jour l'affichage de la slide (title, tag, src)
+  let carouselImg = slides[slideToDisplay].image;
+  let carouselTag = slides[slideToDisplay].tagLine;
 
-left.addEventListener("click", () => {
-  if (i > 0) {
-    i = i - 1;
-    let selectedDotID = dots[i];
-    let previousDotID = dots[i + 1];
-    let carouselImg = slides[i].image;
-    let carouselTag = slides[i].tagLine;
+  carouselImgContainer.setAttribute(
+    "src",
+    "./assets/images/slideshow/" + carouselImg
+  );
+  carouselTagContainer.innerHTML = "<p>" + carouselTag + "</p>";
 
-    selectedDotID.classList.add("dot_selected");
-    previousDotID.classList.remove("dot_selected");
-    carouselImgContainer.setAttribute(
-      "src",
-      "./assets/images/slideshow/" + carouselImg
-    );
-    carouselTagContainer.innerHTML = "<p>" + carouselTag + "</p>";
-  } else {
-	i = 3;
-    let selectedDotID = dots[i];
-    let previousDotID = dots[0];
-    let carouselImg = slides[i].image;
-    let carouselTag = slides[i].tagLine;
-
-    selectedDotID.classList.add("dot_selected");
-    previousDotID.classList.remove("dot_selected");
-    carouselImgContainer.setAttribute(
-      "src",
-      "./assets/images/slideshow/" + carouselImg
-    );
-    carouselTagContainer.innerHTML = "<p>" + carouselTag + "</p>";
+  // Met à jour les classes du dots
+  for (let i = 0; i < dot.length; i++) {
+    dot[i].classList.remove("dot_selected");
   }
+
+  dot[slideToDisplay].classList.add("dot_selected");
+}
+
+/**
+ *
+ */
+btnSliderPrevious.addEventListener("click", () => {
+  // Mise à jours du compteur currentSlide
+  if (currentSlide > 0) {
+    // On incrémente le compteur
+    currentSlide--;
+  } else {
+    // On réinitialise le compteur à la fin du slider
+    currentSlide = slides.length - 1;
+  }
+
+  // currentSlide = ( currentSlide > 0 ? currentSlide - 1 : slides.length - 1 )
+
+  // Affichage de la slide
+  displaySlide(currentSlide);
 });
 
-right.addEventListener("click", () => {
-  if (i <= 2) {
-    i = i + 1;
-    let selectedDotID = dots[i];
-    let previousDotID = dots[i - 1];
-    let carouselImg = slides[i].image;
-    let carouselTag = slides[i].tagLine;
-
-    selectedDotID.classList.add("dot_selected");
-    previousDotID.classList.remove("dot_selected");
-    carouselImgContainer.setAttribute(
-      "src",
-      "./assets/images/slideshow/" + carouselImg
-    );
-    carouselTagContainer.innerHTML = "<p>" + carouselTag + "</p>";
+/**
+ *
+ */
+btnSliderNext.addEventListener("click", () => {
+  // mise à jours du compteur currentSlide
+  if (currentSlide < slides.length - 1) {
+    // On décremente le compteur
+    currentSlide++;
   } else {
-	i = 0;
-    let selectedDotID = dots[i];
-    let previousDotID = dots[3];
-    let carouselImg = slides[i].image;
-    let carouselTag = slides[i].tagLine;
-
-    selectedDotID.classList.add("dot_selected");
-    previousDotID.classList.remove("dot_selected");
-    carouselImgContainer.setAttribute(
-      "src",
-      "./assets/images/slideshow/" + carouselImg
-    );
-    carouselTagContainer.innerHTML = "<p>" + carouselTag + "</p>";
+    // On réinitialise le compteur au début du slider
+    currentSlide = 0;
   }
+
+  // Affichage de la slide
+  displaySlide(currentSlide);
 });
+
+/**
+ *
+ */
+for (let i = 0; i < dot.length; i++) {
+  dot[i].addEventListener("click", () => {
+    // Mise à jours du compteur currentSlide
+    currentSlide = i;
+
+    // Affichage de la slide
+    displaySlide(currentSlide);
+  });
+}
+
+//
+displaySlide(currentSlide);
+
+/**
+ * TODO:
+ * - Créer dynamiquement la liste des dots dans le HTML (createElement... )
+ */

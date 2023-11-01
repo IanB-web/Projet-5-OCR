@@ -202,7 +202,7 @@ header {
 	object-fit: cover;
 	object-position: center;
 }
-/* Code CSS en prévision de l'ajout d'un carousel pour la bannière */
+
 /* Gestion des fleches du carrousel */
 #carousel .arrow {
 	position: absolute;
@@ -239,6 +239,9 @@ header {
 	border: 3px solid #fff;
 	border-radius: 100%;
 	box-shadow: 0 4px 4px rgba(0, 0, 0, 0.25);
+}
+.dot:hover{
+	cursor: pointer;
 }
 .dot_selected {
 	background-color: #fff;
