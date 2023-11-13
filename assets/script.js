@@ -16,17 +16,21 @@ const slides = [
     image: "slide4.png",
     tagLine: "Autocollants <span>avec découpe laser sur mesure</span>",
   },
-  
 ];
+
+
 
 const carouselContainer = document.getElementById("carousel");
 const carouselImgContainer = carouselContainer.querySelector(".carousel__img");
 const carouselTagContainer = carouselContainer.querySelector(".carousel__txt");
+const dotsContainer = document.querySelector(".dots");
 
 const btnSliderPrevious = document.getElementById("left");
 const btnSliderNext = document.getElementById("right");
-let dots = document.querySelector(".dots");
+
 let currentSlide = 0;
+
+
 
 /**
  * création des dots en fonction du nombre de slides
@@ -34,11 +38,16 @@ let currentSlide = 0;
 for (let i = 0; i < slides.length; i++) {
   let dotSpan = document.createElement("span");
 
-  dots.appendChild(dotSpan);
   dotSpan.setAttribute("id", "dot" + i);
   dotSpan.classList.add("dot");
+
+  dotsContainer.appendChild(dotSpan);
 }
+
 const dot = document.querySelectorAll(".dot");
+
+
+
 /**
  * Affiche la slide en fonction de la variable currentSlide
  */
@@ -61,6 +70,8 @@ function displaySlide(slideToDisplay) {
   dot[slideToDisplay].classList.add("dot_selected");
 }
 
+
+
 /**
  * Affiche la slide précedente en cliquant sur la fleche de gauche
  */
@@ -80,9 +91,13 @@ btnSliderPrevious.addEventListener("click", () => {
   displaySlide(currentSlide);
 });
 
+
+
+
 /**
  *Affiche la slide suivante en cliquant sur la fleche de droite
  */
+
 btnSliderNext.addEventListener("click", () => {
   // mise à jours du compteur currentSlide
   if (currentSlide < slides.length - 1) {
@@ -97,9 +112,12 @@ btnSliderNext.addEventListener("click", () => {
   displaySlide(currentSlide);
 });
 
+
+
 /**
  * Affichage de la slide concernée au click sur un dot
  */
+
 for (let i = 0; i < dot.length; i++) {
   dot[i].addEventListener("click", () => {
     // Mise à jours du compteur currentSlide
@@ -112,4 +130,3 @@ for (let i = 0; i < dot.length; i++) {
 
 //
 displaySlide(currentSlide);
-
